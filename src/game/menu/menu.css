@@ -1,0 +1,13 @@
+.centerScreen {
+    text-align: center;
+    display: block;
+    position: absolute;
+    z-index: 1;
+    width: 100%;  
+}
+
+.pressSpace {
+    top: 35%;
+    font-size: 20px;
+    color: #ffffff;
+}

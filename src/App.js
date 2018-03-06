@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
+import Game from './game/game';
+
+const width = window.innerWidth * 0.6;
+const height = window.innerHeight;
+const ratio = window.devicePixelRatio || 1;
 
 class App extends Component {
-  render() {
+  render() {    
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          Hello
-        </p>
+      <div>     
+        <Game width={ width } height={ height } ratio = { ratio }/>
       </div>
     );
   }
