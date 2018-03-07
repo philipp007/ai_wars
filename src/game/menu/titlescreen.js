@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './menu.css'
 
 export default class TitleScreen extends React.Component {
     render() {
         const title = {
-            'top': '10%',
+            'top': '5%',
             'color': 'green',
             'font-size': '80px',
         };

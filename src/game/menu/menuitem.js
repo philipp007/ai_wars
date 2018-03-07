@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
+import './menu.css'
 
 export default class MenuItem extends React.Component {
     constructor(args) {
+        super()
         this.state = {
             name: args.name,
             subItems: args.subItems,
@@ -11,14 +13,25 @@ export default class MenuItem extends React.Component {
     }
 
     open() {
-        if (this.state.subItems) {
-            
+        if (this.state.onOpen) {
+            this.state.onOpen();
         }
     }
 
-	render() {        
+	render() {   
+        let className = '';
+        let displayName = this.state.name;
+
+        if (this.state.selected) {
+            className = 'activeMenuItem';
+            displayName = '< ' + displayName + ' >';
+        } else {
+            className = 'menuItem';
+        }
+        
 		return (
-			<div>
+			<div className={ className }>
+                <span>{ displayName }</span>
 			</div>
         );
 	}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './game.css';
-import TitleScreen from './menu/titlescreen'
+import TitleScreen from './menu/titlescreen';
+import MainMenu from './menu/mainMenu';
 
 const GameState = {    
     StartScreen: 0,
@@ -26,7 +27,8 @@ export default class Game extends Component {
   render() {
     return (
       <div>
-        {this.state.gameState === GameState.StartScreen && <TitleScreen />}
+        { this.state.gameState === GameState.StartScreen && <TitleScreen /> }
+        { this.state.gameState === GameState.StartScreen && <MainMenu /> }
         <canvas ref="canvas"
           width={this.state.screen.width * this.state.screen.ratio}
           height={this.state.screen.height * this.state.screen.ratio}

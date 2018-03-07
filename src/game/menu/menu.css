@@ -11,3 +11,18 @@
     font-size: 20px;
     color: #ffffff;
 }
+
+.menuItem {
+    font-size: 80px;
+    color: #ffffff;
+}
+
+.activeMenuItem {
+    animation: blinker 2s linear infinite;
+    color: yellow;
+    font-size: 100px;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0.2; }
+}
