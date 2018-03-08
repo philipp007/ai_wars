@@ -6,7 +6,7 @@ export default class TitleScreen extends React.Component {
         const title = {
             'top': '5%',
             'color': 'green',
-            'font-size': '80px',
+            'fontSize': '80px',
         };
 
         return (

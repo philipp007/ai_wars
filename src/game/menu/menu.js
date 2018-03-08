@@ -1,7 +1,8 @@
 import React from 'react';
 import './menu.css'
+import MenuItem from './menuItem';
 
-export default class MenuItem extends React.Component {
+export default class Menu extends React.Component {
     constructor(args) {
         super()
         this.state = {
@@ -18,13 +19,14 @@ export default class MenuItem extends React.Component {
 
 	render() { 
         const style = {
-            'top': '20%',
-            'font-size': '80px',
+            'fontSize': '80px',
         };
+
+        const menuItems = this.state.items.map(x => <MenuItem key={ x.id } name={ x.name } selected={ x.selected } />);
 
 		return (
 			<div style={ style }>
-                { this.state.items }
+                { menuItems }
 			</div>
         );
 	}

@@ -3,7 +3,7 @@ import './menu.css'
 
 export default class MenuItem extends React.Component {
     constructor(args) {
-        super()
+        super();
         this.state = {
             name: args.name,
             subItems: args.subItems,
@@ -17,6 +17,14 @@ export default class MenuItem extends React.Component {
             this.state.onOpen();
         }
     }
+
+    componentWillReceiveProps(nextProps) {
+        if(this.props !== nextProps) {
+          this.setState({
+            selected: nextProps.selected
+          });
+        }
+      }
 
 	render() {   
         let className = '';
