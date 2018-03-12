@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './game.css';
 import TitleScreen from './menu/titleScreen';
-import MainMenu from './menu/mainMenu';
+import Menu from './menu/menu';
 import InputManager from './inputManager';
 
 const GameState = {
@@ -25,8 +25,14 @@ export default class Game extends Component {
         this.input = new InputManager();
         this.previousDelta = 0;
         this.fpsLimit = 1000 / 30;
-        this.msSinceLastMenuUpdate = 0;
-        this.menuUpdateAfterMs = 1000;
+    }
+
+    getMenuItems() {
+        const menuItems = [];
+        menuItems.push({ id: 1, name: "Train", selected: true });
+        menuItems.push({ id: 2, name: "Play", selected: false });
+        menuItems.push({ id: 3, name: "Exit", selected: false });
+        return menuItems;
     }
 
     componentDidMount() {
@@ -40,25 +46,20 @@ export default class Game extends Component {
 
     update(previousTime) {
         const currentTime = Date.now();
-        const delta = currentTime - previousTime;
-        const fps = 1000 / delta;       
+        const timeDelta = currentTime - previousTime;
+        const fps = 1000 / timeDelta;       
 
-        if (delta <= this.fpsLimit) {
+        if (timeDelta <= this.fpsLimit) {
             requestAnimationFrame(() => { this.update(previousTime) });
             return;
         }
 
-        this.msSinceLastMenuUpdate += delta;
         previousTime = currentTime;
 
         const keys = this.input.pressedKeys;
 
         if (this.state.gameState === GameState.StartScreen) {
-            this.msSinceLastMenuUpdate = 0;
-            console.log("now");
-            if (keys.down || keys.up) {
-                this.mainMenu.update(keys);
-            }
+            this.mainMenu.update(keys, timeDelta);
         }
         
         requestAnimationFrame(() => { this.update(currentTime) });
@@ -68,7 +69,7 @@ export default class Game extends Component {
         return (
             <div>
                 {this.state.gameState === GameState.StartScreen && <TitleScreen />}
-                {this.state.gameState === GameState.StartScreen && <MainMenu onRef = { ref => (this.mainMenu = ref) } input = { this.input }/>}
+                {this.state.gameState === GameState.StartScreen && <Menu onRef = { ref => (this.mainMenu = ref) } menuItems = { this.getMenuItems() } />}
                 <canvas ref="canvas"
                     width={this.state.screen.width * this.state.screen.ratio}
                     height={this.state.screen.height * this.state.screen.ratio}
