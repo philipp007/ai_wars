@@ -6,8 +6,9 @@ import InputManager from './inputManager';
 
 const GameState = {
     StartScreen: 0,
-    Playing: 1,
-    GameOver: 2
+    Train: 1,    
+    Play: 2,
+    GameOver: 3
 };
 
 export default class Game extends Component {
@@ -29,8 +30,8 @@ export default class Game extends Component {
 
     getMenuItems() {
         const menuItems = [];
-        menuItems.push({ id: 1, name: "Train", selected: true });
-        menuItems.push({ id: 2, name: "Play", selected: false });
+        menuItems.push({ id: 1, name: "Train", selected: true, onOpen: () => this.changeGameState(GameState.Train) });
+        menuItems.push({ id: 2, name: "Play", selected: false, onOpen: () => this.changeGameState(GameState.Play) });
         menuItems.push({ id: 3, name: "Exit", selected: false });
         return menuItems;
     }
@@ -42,6 +43,10 @@ export default class Game extends Component {
 
     componentWillUnmount() {
         this.input.unbindKeys();
+    }
+
+    changeGameState(newState) {
+        this.setState({ gameState: newState });
     }
 
     update(previousTime) {

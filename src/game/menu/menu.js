@@ -11,7 +11,6 @@ export default class Menu extends React.Component {
         };
 
         this.timeSinceLastUpdate = 0;
-        this.lastPressedKeys = null;
         this.updateInterval = 100;
     }    
 
@@ -56,6 +55,9 @@ export default class Menu extends React.Component {
                 menuItems[selectedIndex].selected = false;
                 menuItems[selectedIndex + 1].selected = true;
             }
+        } else if (keys.enter) {
+            const selectedItem = menuItems[selectedIndex];
+            selectedItem.onOpen && selectedItem.onOpen();
         }      
         
         this.setState({ menuItems: menuItems });
