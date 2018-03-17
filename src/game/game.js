@@ -3,6 +3,8 @@ import './game.css';
 import TitleScreen from './menu/titleScreen';
 import Menu from './menu/menu';
 import InputManager from './inputManager';
+import Player from './gameObjects/player';
+import ShipView from './views/shipView';
 
 const GameState = {
     StartScreen: 0,
@@ -21,11 +23,13 @@ export default class Game extends Component {
                 ratio: args.ratio
             },
             gameState: GameState.StartScreen,
+            context: null
         };
 
         this.input = new InputManager();
         this.previousDelta = 0;
         this.fpsLimit = 1000 / 30;
+        this.ships = [];
     }
 
     getMenuItems() {
@@ -38,6 +42,9 @@ export default class Game extends Component {
 
     componentDidMount() {
         this.input.bindKeys();
+        const context = this.refs.canvas.getContext('2d');
+        this.setState({ context: context });
+
         requestAnimationFrame(() => { this.update(Date.now()) });
     }
 
@@ -46,7 +53,26 @@ export default class Game extends Component {
     }
 
     changeGameState(newState) {
+        if (newState === GameState.Play || newState === GameState.Train) {
+            this.initGame(newState);
+        }
+
         this.setState({ gameState: newState });
+    }
+
+    initGame(state) {
+        if (state === GameState.Play) {
+            const player = new Player({ 
+                position: {
+                    x: this.state.screen.width / 2,
+                    y: this.state.screen.height - 50
+                }
+            })
+
+            const playerView = new ShipView({ player: player });
+
+            this.ships.push(playerView);
+        }
     }
 
     update(previousTime) {
@@ -59,6 +85,8 @@ export default class Game extends Component {
             return;
         }
 
+        this.resetContext(this.state.context);
+
         previousTime = currentTime;
 
         const keys = this.input.pressedKeys;
@@ -66,8 +94,20 @@ export default class Game extends Component {
         if (this.state.gameState === GameState.StartScreen) {
             this.mainMenu.update(keys, timeDelta);
         }
+
+        if (this.state.gameState === GameState.Play) {
+            this.ships.forEach(ship => { ship.update(this.state, keys); ship.render(this.state); });
+        }        
         
         requestAnimationFrame(() => { this.update(currentTime) });
+    }
+
+    resetContext(context) {
+        context.save();
+        context.scale(this.state.screen.ratio, this.state.screen.ratio);
+
+        context.fillRect(0, 0, this.state.screen.width, this.state.screen.height);
+        context.globalAlpha = 1;
     }
 
     render() {

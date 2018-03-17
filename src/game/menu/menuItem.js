@@ -24,7 +24,7 @@ export default class MenuItem extends React.Component {
             selected: nextProps.selected
           });
         }
-      }
+    }
 
 	render() {   
         let className = '';
