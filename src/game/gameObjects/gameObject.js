@@ -1,3 +1,5 @@
+import { toVector } from '../utils';
+
 export default class GameObject {
 	constructor(args){
 		this.position = args.position;
@@ -37,7 +39,7 @@ export default class GameObject {
 
     move(keys) {
         if (keys.up) {
-            const translation = this.toVector(this.angle);
+            const translation = toVector(this.angle);
             this.position.x += this.speed * translation.x;
             this.position.y += this.speed * translation.y;
         }   
@@ -55,14 +57,5 @@ export default class GameObject {
         } else if(this.position.y < 0) {
            this.position.y = state.screen.height;
         }
-    }
-
-    toVector(angle) {
-        const radians = this.toRadians(angle);
-        return { x: Math.sin(radians), y: -Math.cos(radians) };
-    }
-    
-    toRadians(angle) {
-        return angle * (Math.PI / 180);
-    }
+    }   
 }
