@@ -13,7 +13,7 @@ const KEY = {
 
 export default class InputManager {
      constructor() {
-      this.pressedKeys = { left: 0, right: 0, up: 0, down: 0, space: 0, enter: 0 };
+     this.pressedKeys = { left: false, right: false, up: false, down: false, space: false, enter: false };
   }
 
   handleKeys(value, e){
@@ -56,4 +56,4 @@ export default class InputManager {
       window.removeEventListener('keyup', this.handleKeys);
       window.removeEventListener('keydown', this.handleKeys);
   }
-}
+};

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MenuItem should be rendered 1`] = `
+<div
+  className="menuItem"
+>
+  <span>
+    Test
+  </span>
+</div>
+`;
