@@ -1,0 +1,137 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Menu should be rendered 1`] = `
+<div
+  className="centerScreen"
+  style={
+    Object {
+      "fontSize": "80px",
+      "top": "25%",
+    }
+  }
+>
+  <div
+    className="activeMenuItem"
+  >
+    <span>
+      &lt; MenuItem1 &gt;
+    </span>
+  </div>
+  <div
+    className="menuItem"
+  >
+    <span>
+      MenuItem2
+    </span>
+  </div>
+  <div
+    className="menuItem"
+  >
+    <span>
+      MenuItem3
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Menu should change selected items upon key press 1`] = `
+<div
+  className="centerScreen"
+  style={
+    Object {
+      "fontSize": "80px",
+      "top": "25%",
+    }
+  }
+>
+  <div
+    className="activeMenuItem"
+  >
+    <span>
+      &lt; MenuItem1 &gt;
+    </span>
+  </div>
+  <div
+    className="menuItem"
+  >
+    <span>
+      MenuItem2
+    </span>
+  </div>
+  <div
+    className="menuItem"
+  >
+    <span>
+      MenuItem3
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Menu should change selected items upon key press 2`] = `
+<div
+  className="centerScreen"
+  style={
+    Object {
+      "fontSize": "80px",
+      "top": "25%",
+    }
+  }
+>
+  <div
+    className="menuItem"
+  >
+    <span>
+      MenuItem1
+    </span>
+  </div>
+  <div
+    className="activeMenuItem"
+  >
+    <span>
+      &lt; MenuItem2 &gt;
+    </span>
+  </div>
+  <div
+    className="menuItem"
+  >
+    <span>
+      MenuItem3
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Menu should change selected items upon key press 3`] = `
+<div
+  className="centerScreen"
+  style={
+    Object {
+      "fontSize": "80px",
+      "top": "25%",
+    }
+  }
+>
+  <div
+    className="menuItem"
+  >
+    <span>
+      MenuItem1
+    </span>
+  </div>
+  <div
+    className="menuItem"
+  >
+    <span>
+      MenuItem2
+    </span>
+  </div>
+  <div
+    className="activeMenuItem"
+  >
+    <span>
+      &lt; MenuItem3 &gt;
+    </span>
+  </div>
+</div>
+`;

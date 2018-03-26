@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TitleScreen should be rendered 1`] = `
+<div>
+  <span
+    className="centerScreen"
+    style={
+      Object {
+        "color": "green",
+        "fontSize": "80px",
+        "top": "5%",
+      }
+    }
+  >
+    AI Wars
+  </span>
+</div>
+`;
