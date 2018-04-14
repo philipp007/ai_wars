@@ -11,6 +11,7 @@ export default class ShipView {
         const context = state.context;
         const playerAngle = this.player.angle;
 
+        this.player.renderBullets(state);
 	    context.save();
         context.translate(this.player.position.x, this.player.position.y);
         context.rotate(playerAngle * Math.PI / 180);
