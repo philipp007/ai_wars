@@ -7,7 +7,8 @@ export default class GameObject {
 		this.speed = args.speed;
         this.radius = args.radius;
         this.angle = args.angle;
-		this.delete = false;
+        this.color = args.color;
+        this.delete = false;
 	}
 
 	die() {

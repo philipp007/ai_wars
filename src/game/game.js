@@ -4,7 +4,7 @@ import TitleScreen from './menu/titleScreen';
 import Menu from './menu/menu';
 import InputManager from './inputManager';
 import Player from './gameObjects/player';
-import ShipView from './views/shipView';
+import AI from './gameObjects/ai';
 
 const GameState = {
     StartScreen: 0,
@@ -69,9 +69,39 @@ export default class Game extends Component {
                 }
             })
 
-            const playerView = new ShipView({ player: player });
+            const ai = new AI({
+                position: {
+                    x: this.state.screen.width / 2,
+                    y: this.state.screen.height - 300
+                },
+                color: "#ff0000"
+            })
 
-            this.ships.push(playerView);
+            this.ships.push(player);
+            this.ships.push(ai);
+        }
+
+        if (state === GameState.Train) {
+            const ai1 = new AI({ 
+                position: {
+                    x: 50,
+                    y: 50
+                },
+                angle: 135,
+                color: "#ff0000"
+            })
+
+            const ai2 = new AI({
+                position: {
+                    x: this.state.screen.width -50,
+                    y: this.state.screen.height - 50
+                },
+                angle: 315,
+                color: "#ffff00"
+            })
+
+            this.ships.push(ai1);
+            this.ships.push(ai2);
         }
     }
 
@@ -95,7 +125,7 @@ export default class Game extends Component {
             this.mainMenu.update(keys, timeDelta);
         }
 
-        if (this.state.gameState === GameState.Play) {
+        if (this.state.gameState === GameState.Play || this.state.gameState === GameState.Train) {
             this.ships.forEach(ship => { ship.update(this.state, keys); ship.render(this.state); });
         }        
         
