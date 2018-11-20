@@ -6,8 +6,9 @@ export default class Player extends GameObject {
 		super({ position: args.position || { x: 0, y: 0 },
                 onDie: args.onDie, 
                 speed: args.speed || 10, 
-                radius: args.radius || 15, 
-                angle: args.angle || 0,
+                radius: args.radius || 20, 
+								angle: args.angle || 0,
+								id: args.id,
                 color: args.color || "#ffffff",
                 delete: args.delete || false });
 
@@ -19,9 +20,9 @@ export default class Player extends GameObject {
         super.update(state, keys);
 
         if (keys.space && Date.now() - this.lastShot > 250) {
-			const bullet = new Bullet({
-                position: { x: this.position.x, y : this.position.y },
-                angle: this.angle
+					const bullet = new Bullet({
+							position: { x: this.position.x, y : this.position.y },
+							angle: this.angle
 			});
 
 			this.bullets.push(bullet);
@@ -43,13 +44,13 @@ export default class Player extends GameObject {
     }
     
     render(state) {
-        const context = state.context;
-        const playerAngle = this.angle;
+			const context = state.context;
+			const playerAngle = this.angle;
 
-        this.renderBullets(state);
+			this.renderBullets(state);
 	    context.save();
-        context.translate(this.position.x, this.position.y);
-        context.rotate(playerAngle * Math.PI / 180);
+			context.translate(this.position.x, this.position.y);
+			context.rotate(playerAngle * Math.PI / 180);
 	    context.strokeStyle = this.color;
 	    context.fillStyle = this.color;
 	    context.lineWidth = 2;

@@ -29,7 +29,16 @@ export default class Game extends Component {
         this.input = new InputManager();
         this.previousDelta = 0;
         this.fpsLimit = 1000 / 30;
-        this.ships = [];
+        this.player1 = null;
+        this.player2 = null;
+        this.player1StartPosition = {                    
+            x: this.state.screen.width / 2,
+            y: this.state.screen.height - 50
+        };
+        this.player2StartPosition = {                    
+            x: this.state.screen.width / 2,
+            y: this.state.screen.height - 300
+        };
     }
 
     getMenuItems() {
@@ -63,45 +72,37 @@ export default class Game extends Component {
     initGame(state) {
         if (state === GameState.Play) {
             const player = new Player({ 
-                position: {
-                    x: this.state.screen.width / 2,
-                    y: this.state.screen.height - 50
-                }
-            })
+                id: 1,
+                position: { x: this.player1StartPosition.x, y: this.player1StartPosition.y } 
+            });
 
             const ai = new AI({
-                position: {
-                    x: this.state.screen.width / 2,
-                    y: this.state.screen.height - 300
-                },
+                id: 2,
+                position: { x: this.player2StartPosition.x, y: this.player2StartPosition.y },
                 color: "#ff0000"
-            })
+            });
 
-            this.ships.push(player);
-            this.ships.push(ai);
+            this.player1 = player;
+            this.player2 = ai;
         }
 
         if (state === GameState.Train) {
             const ai1 = new AI({ 
-                position: {
-                    x: 50,
-                    y: 50
-                },
+                id: 1,
+                position: { x: this.player1StartPosition.x, y: this.player1StartPosition.y },
                 angle: 135,
                 color: "#ff0000"
-            })
+            });
 
             const ai2 = new AI({
-                position: {
-                    x: this.state.screen.width -50,
-                    y: this.state.screen.height - 50
-                },
+                id: 2,
+                position: { x: this.player2StartPosition.x, y: this.player2StartPosition.y },
                 angle: 315,
                 color: "#ffff00"
-            })
+            });
 
-            this.ships.push(ai1);
-            this.ships.push(ai2);
+            this.player1 = ai1;
+            this.player2 = ai2;
         }
     }
 
@@ -126,11 +127,35 @@ export default class Game extends Component {
         }
 
         if (this.state.gameState === GameState.Play || this.state.gameState === GameState.Train) {
-            this.ships.forEach(ship => { ship.update(this.state, keys); ship.render(this.state); });
+            this.updatePlayer(this.player1, this.player2, keys);
+            this.updatePlayer(this.player2, this.player1, keys);
         }        
         
         requestAnimationFrame(() => { this.update(currentTime) });
     }
+
+    updatePlayer(player1, player2, keys) {
+        player1.update(this.state, keys); 
+        player1.render(this.state);
+
+        if (player1.collidesWith(player2)){
+            player1.resetPosition();
+            player2.resetPosition();
+
+            player1.decreaseScore(1);
+            player2.decreaseScore(1);
+        } 
+
+        if (player1.bullets.length > 0){
+            player1.bullets.forEach(bullet =>{
+                if (bullet.collidesWith(player2)){
+                    player2.resetPosition();
+                    player2.decreaseScore(5);
+                    player1.increaseScore(5);
+                } 
+            });
+        }
+    } 
 
     resetContext(context) {
         context.save();

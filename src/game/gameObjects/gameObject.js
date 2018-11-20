@@ -8,7 +8,10 @@ export default class GameObject {
         this.radius = args.radius;
         this.angle = args.angle;
         this.color = args.color;
+        this.id = args.id;
         this.delete = false;
+        this.score = 0;        
+        this.startPosition = {x: this.position.x, y: this.position.y }  
 	}
 
 	die() {
@@ -58,5 +61,31 @@ export default class GameObject {
         } else if(this.position.y < 0) {
            this.position.y = state.screen.height;
         }
-    }   
+    }
+
+    collidesWith(target) {
+        return this.checkCollision(this, target)
+    }
+
+    checkCollision(obj1, obj2) {
+        var vx = obj1.position.x - obj2.position.x;
+        var vy = obj1.position.y - obj2.position.y;
+        var length = Math.sqrt(vx * vx + vy * vy);
+        if(length < obj1.radius + obj2.radius) {
+          return true;
+        }
+        return false;
+    }
+
+    increaseScore(score) {
+        this.score += score || 1;
+    }
+
+    decreaseScore(score){
+        this.score -= score || 1;  
+    }
+
+    resetPosition() {
+        this.position = { x: this.startPosition.x, y: this.startPosition.y };
+    } 
 }
