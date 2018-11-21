@@ -11,7 +11,7 @@ export default class GameObject {
         this.id = args.id;
         this.delete = false;
         this.score = 0;        
-        this.startPosition = {x: this.position.x, y: this.position.y }  
+        this.startPosition = { x: this.position.x, y: this.position.y }  
 	}
 
 	die() {
@@ -21,7 +21,7 @@ export default class GameObject {
 		}
     }
     
-    update(state, keys) {
+    update(state, keys, player1, player2) {
 		this.setAngle(keys);
         this.move(keys);
         this.keepOnScreen(state);

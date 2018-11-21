@@ -135,10 +135,10 @@ export default class Game extends Component {
     }
 
     updatePlayer(player1, player2, keys) {
-        player1.update(this.state, keys); 
+        player1.update(this.state, keys, player1, player2); 
         player1.render(this.state);
 
-        if (player1.collidesWith(player2)){
+        if (player1.collidesWith(player2)) {
             player1.resetPosition();
             player2.resetPosition();
 
@@ -146,9 +146,9 @@ export default class Game extends Component {
             player2.decreaseScore(1);
         } 
 
-        if (player1.bullets.length > 0){
-            player1.bullets.forEach(bullet =>{
-                if (bullet.collidesWith(player2)){
+        if (player1.bullets.length > 0) {
+            player1.bullets.forEach(bullet => {
+                if (bullet.collidesWith(player2)) {
                     player2.resetPosition();
                     player2.decreaseScore(5);
                     player1.increaseScore(5);
